@@ -17,19 +17,19 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
+    private String passw;
     @Enumerated(EnumType.STRING)
     private Role role;
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password) {
+    public User(Long id, String firstName, String lastName, String email, String passw) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.passw = passw;
     }
 
     public Long getId() {
@@ -64,41 +64,50 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+
+    public String getPassw() {
+        return passw;
+    }
+
+    public void setPassw(String passw) {
+        this.passw = passw;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    @Override
     public String getPassword() {
-        return password;
+        return passw;
     }
+
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 }
